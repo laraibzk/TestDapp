@@ -47,33 +47,69 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/web3.min.js"></script>
     <script>
-      // Initialize Web3
+      //client side app
+      //initialize web3
       if (typeof web3 !== 'undefined') {
         web3 = new Web3(web3.currentProvider);
       } else {
         web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
       }
 
-      // Set Account
-      web3.eth.defaultAccount = web3.eth.accounts[0];
 
-      // Set Contract Abi
-      var contractAbi = []; // Add Your Contract ABI here!!!
-
-      // Set Contract Address
-      var contractAddress = ''; // Add Your Contract address here!!!
-
-      // Set the Contract
-      var contract = web3.eth.contract(contractAbi).at(contractAddress);
+      //set default account
+      web3.eth.defaultAccount = web3.eth.accounts[2];
+      var contractAbi = [
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_name",
+				"type": "string"
+			}
+		],
+		"name": "setCandidateName",
+		"outputs": [],
+		"payable": false,
+		"type": "function",
+		"stateMutability": "nonpayable"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "candidateName",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"type": "function",
+		"stateMutability": "view"
+	},
+	{
+		"inputs": [],
+		"type": "constructor",
+		"payable": true,
+		"stateMutability": "payable"
+	}
+];
+      var contractAddress = '0x01667FC6FcC4E8F6Abfc143145233a4021b76b5a';
+      //Set contract - representation of contract in client side
+      var contract = web3.eth.contract(contractAbi).at(contractAddress); //this expects an ABI (app binary interface, json object)
 
       // Display Candidate Name
       contract.candidateName(function(err, candidateName) {
         $('#candidateName').html(candidateName);
       });
-
-      // Change the Candidate Name
-      $('form').on('submit', function(event) {
-        event.preventDefault();
+      //  // Change the Candidate Name
+      // $('form').on('submit', function(event) { 
+      //   event.preventDefault();
+      //   contract.setCandidate($('input').val());
+      // } )
+      
+       $('form').on('submit', function(event) {
+        event.preventDefault;
         contract.setCandidate($('input').val());
       })
 

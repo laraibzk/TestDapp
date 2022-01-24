@@ -1,0 +1,16 @@
+//SPDX-License-Identifier: <SPDX-License>
+pragma solidity  ^0.4.2;
+
+contract Election {
+    string public candidateName;
+
+    function Election1() public {
+        candidateName = "Candidate 1";
+    }
+
+    function setCandidateName (string memory _name ) public {
+        candidateName = _name;
+    } 
+
+}
+
